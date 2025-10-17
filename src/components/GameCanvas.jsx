@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Phaser from "phaser";
 import { io } from "socket.io-client";
 import GameModal from "./GameModal";
-import MainScene from "../game/MainScene";
+import MainScene from "../game/MainScene.jsxx";
 import GameUI from "./GameUI";
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
