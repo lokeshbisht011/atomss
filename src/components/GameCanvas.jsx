@@ -58,6 +58,14 @@ export default function GameCanvas() {
 
     socket.on("connect", () => console.log("✅ Connected to server"));
 
+    game.events.once(Phaser.Core.Events.READY, () => {
+      const scene = game.scene.keys["MainScene"]; // or whatever your scene key is
+      if (scene && scene.disableKeyboard) {
+        scene.disableKeyboard();
+        console.log("🎮 Keyboard input disabled for modal");
+      }
+    });
+
     // Clean up on unmount
     return () => {
       if (socketRef.current) socketRef.current.disconnect();
@@ -76,6 +84,7 @@ export default function GameCanvas() {
       scene.setStatsCallback((newStats) => setStats(newStats));
       scene.setGameOverCallback(handleGameOver);
       socket.emit("joinGame", playerName);
+      scene.enableKeyboard()
     }
 
     setShowModal(false);

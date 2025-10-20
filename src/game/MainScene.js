@@ -49,7 +49,7 @@ export default class MainScene extends Phaser.Scene {
   setGameOverCallback(callback) {
     this.onGameOver = callback;
   }
-
+  
   // --- Phaser Lifecycle Methods ---
 
   preload() {

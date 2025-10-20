@@ -69,6 +69,10 @@ export class Renderer {
   }
 
   updatePlayer(playerData) {
+    if (!playerData.isAlive) {
+      return;
+    }
+    
     let playerContainer = this.players.get(playerData.id);
 
     if (!playerContainer) {

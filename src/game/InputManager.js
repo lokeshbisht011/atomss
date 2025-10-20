@@ -23,7 +23,6 @@ export class InputManager {
       this.createMobileControls();
     } else {
       this.cursors = this.scene.input.keyboard?.createCursorKeys() || null;
-      this.wasd = this.scene.input.keyboard?.addKeys("W,S,A,D");
     }
 
     // Shooting input
@@ -31,13 +30,25 @@ export class InputManager {
       if (
         pointer.leftButtonDown() &&
         this.scene.socket &&
-        this.scene.currentPlayerId
+        this.scene.currentPlayerId &&
+        !this.isInputFocused()
       ) {
         const worldX = pointer.x + this.scene.cameras.main.scrollX;
         const worldY = pointer.y + this.scene.cameras.main.scrollY;
         this.scene.socket.emit("shoot", { x: worldX, y: worldY });
       }
     });
+  }
+
+  isInputFocused() {
+    const focused = document.activeElement;
+    if (!focused) return false;
+    const tagName = focused.tagName.toLowerCase();
+    return (
+      tagName === "input" ||
+      tagName === "textarea" ||
+      focused.getAttribute("contenteditable") === "true"
+    );
   }
 
   createMobileControls() {
@@ -115,6 +126,14 @@ export class InputManager {
    */
   update() {
     if (!this.scene.socket || !this.scene.currentPlayerId) return;
+
+    if (this.isInputFocused()) {
+      return;
+    }
+
+    if (!this.wasd) {
+      this.wasd = this.scene.input.keyboard?.addKeys("W,S,A,D");
+    }
 
     const playerContainer = this.scene.players.get(this.scene.currentPlayerId);
     if (!playerContainer) return;

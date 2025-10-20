@@ -28,7 +28,7 @@ const GameModal = ({
           transition={{ duration: 0.25 }}
         >
           <h1 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-            Atom Arena
+            Atomss.fun
           </h1>
 
           <p className="text-gray-400 mb-6">
