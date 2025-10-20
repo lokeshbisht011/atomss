@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Atom Arena",
+  title: "Atomss.fun",
   description: "Multiplayer top-down game where atoms grow and compete",
 };
 
