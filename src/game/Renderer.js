@@ -1,5 +1,3 @@
-import Phaser from "phaser";
-
 export class Renderer {
   constructor(scene) {
     this.scene = scene;
@@ -13,29 +11,37 @@ export class Renderer {
    * Initializes the static visual elements of the world (grid).
    */
   createWorldGraphics(worldW, worldH) {
-    this.scene.cameras.main.setBackgroundColor(0x0a0a1a);
+    this.scene.cameras.main.setBackgroundColor(0x000000);
     this.scene.cameras.main.setBounds(0, 0, worldW, worldH);
 
-    const grid = this.scene.add.graphics({
-      lineStyle: { width: 1, color: 0x1f1f3f, alpha: 0.8 },
-    });
-    const gridSize = 50;
+    if (window.innerWidth < 768) {
+      this.scene.cameras.main.setZoom(0.6);
+    } else if (window.innerWidth < 1200) {
+      this.scene.cameras.main.setZoom(0.8);
+    } else {
+      this.scene.cameras.main.setZoom(1.0);
+    }    
 
-    // Minor lines
-    for (let x = 0; x <= worldW; x += gridSize)
-      grid.lineBetween(x, 0, x, worldH);
-    for (let y = 0; y <= worldH; y += gridSize)
-      grid.lineBetween(0, y, worldW, y);
+    const starLayers = [
+      { count: 2000, minSize: 1, maxSize: 1, color: 0x4a4a66, scrollFactor: 0.1 }, 
+      { count: 2000, minSize: 1, maxSize: 2, color: 0x8c8cb3, scrollFactor: 0.3 }, 
+      { count: 2000, minSize: 2, maxSize: 3, color: 0xeeeeff, scrollFactor: 0.6 },
+    ];
+    
+    for (const layer of starLayers) {
+      const starGraphics = this.scene.add.graphics()
+        .setDepth(-10)
+        .setScrollFactor(layer.scrollFactor);
 
-    // Major lines
-    grid.lineStyle(2, 0x3a3a6a, 1.0);
-    const majorGridSize = 5 * gridSize;
-    for (let x = 0; x <= worldW; x += majorGridSize)
-      grid.lineBetween(x, 0, x, worldH);
-    for (let y = 0; y <= worldH; y += majorGridSize)
-      grid.lineBetween(0, y, worldW, y);
-      
-    grid.setDepth(-10);
+      for (let i = 0; i < layer.count; i++) {
+        const x = Math.random() * worldW;
+        const y = Math.random() * worldH;
+        const size = Phaser.Math.Between(layer.minSize, layer.maxSize);
+
+        starGraphics.fillStyle(layer.color, 1);
+        starGraphics.fillCircle(x, y, size);
+      }
+    }
   }
 
   // --- Player Rendering ---

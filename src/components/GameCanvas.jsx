@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Phaser from "phaser";
 import { io } from "socket.io-client";
 import GameModal from "./GameModal";
-import MainScene from "../game/MainScene.jsxx";
+import MainScene from "../game/MainScene.js";
 import GameUI from "./GameUI";
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
@@ -27,7 +27,7 @@ export default function GameCanvas() {
   });
 
   useEffect(() => {
-    const socket = io("https://atomss-backend.onrender.com");
+    const socket = io("http://localhost:3001");
     socketRef.current = socket;
 
     const config = {

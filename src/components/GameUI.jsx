@@ -107,7 +107,7 @@ export default function GameUI({ stats }) {
             </p>
           </div>
           {/* Legend TODO remove*/}
-          <div className="mt-4 bg-gray-900/90 border-2 border-blue-500/50 rounded-lg p-3 backdrop-blur-sm pointer-events-auto">
+          {/* <div className="mt-4 bg-gray-900/90 border-2 border-blue-500/50 rounded-lg p-3 backdrop-blur-sm pointer-events-auto">
             <div className="space-y-1 text-xs text-gray-300">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-red-500"></div>
@@ -126,7 +126,7 @@ export default function GameUI({ stats }) {
                 <span>{stats.worldTotals.total}</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Controls + Leaderboard */}

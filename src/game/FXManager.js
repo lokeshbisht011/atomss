@@ -52,10 +52,8 @@ export class FXManager {
   /**
    * Plays a collect sound and triggers a visual particle collection effect.
    */
-  onResourceCollected(playerId) {
-    if (playerId === this.scene.currentPlayerId) {
-      this.collectSound.play();
-    }
+  onResourceCollected(type) {
+    this.collectSound.play();
   }
 
   /**
@@ -70,7 +68,7 @@ export class FXManager {
     
     // Create a particle system directly
     const explosion = this.scene.add.particles(x, y, "explosion_dot", {
-      lifespan: 800,
+      lifespan: 300,
       speed: { min: 100, max: 250 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },

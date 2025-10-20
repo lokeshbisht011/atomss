@@ -16,14 +16,10 @@ export class SocketManager {
 
     this.scene.socket.on("joined", (data) => {
       this.scene.currentPlayerId = data.playerId;
-      // Dimensions are 9000x9000, set in the Renderer init
+      this.scene.cameras.main.centerOn(data.playerX, data.playerY);
     });
 
     this.scene.socket.on("gameState", (state) => this.updateGameState(state));
-
-    this.scene.socket.on("resourceCollected", (data) => {
-      this.fxManager.onResourceCollected(data.playerId);
-    });
 
     this.scene.socket.on("bulletFired", (bullet) => {
       // The renderer will handle creating/updating this bullet in the next gameState update
@@ -71,7 +67,6 @@ export class SocketManager {
           element: current.element,
           stability: current.stability,
           players: state.players,
-          worldTotals: state.worldTotals,
         });
       }
     }
