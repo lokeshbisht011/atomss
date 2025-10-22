@@ -27,7 +27,7 @@ export default function GameCanvas() {
   });
 
   useEffect(() => {
-    const socket = io("http://localhost:3001");
+    const socket = io(process.env.NEXT_PUBLIC_ATOMSS_BACKEND_URL);
     socketRef.current = socket;
 
     const config = {
@@ -58,13 +58,13 @@ export default function GameCanvas() {
 
     socket.on("connect", () => console.log("✅ Connected to server"));
 
-    game.events.once(Phaser.Core.Events.READY, () => {
-      const scene = game.scene.keys["MainScene"]; // or whatever your scene key is
-      if (scene && scene.disableKeyboard) {
-        scene.disableKeyboard();
-        console.log("🎮 Keyboard input disabled for modal");
-      }
-    });
+    // game.events.once(Phaser.Core.Events.READY, () => {
+    //   const scene = game.scene.keys["MainScene"]; // or whatever your scene key is
+    //   if (scene && scene.disableKeyboard) {
+    //     scene.disableKeyboard();
+    //     console.log("🎮 Keyboard input disabled for modal");
+    //   }
+    // });
 
     // Clean up on unmount
     return () => {
@@ -84,7 +84,6 @@ export default function GameCanvas() {
       scene.setStatsCallback((newStats) => setStats(newStats));
       scene.setGameOverCallback(handleGameOver);
       socket.emit("joinGame", playerName);
-      scene.enableKeyboard()
     }
 
     setShowModal(false);
